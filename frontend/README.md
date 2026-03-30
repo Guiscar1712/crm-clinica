@@ -8,7 +8,6 @@ Interface **React 18** + **Vite** + **TypeScript**, com **shadcn/ui** e **TanSta
 - `npm run build` — build para produção (`dist/`).
 - `npm run preview` — pré-visualização do build.
 - `npm run lint` — ESLint.
-- `npm run test` — Vitest.
 
 ## Variáveis de ambiente
 

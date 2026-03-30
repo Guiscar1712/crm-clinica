@@ -6,7 +6,7 @@ Monorepo com **API NestJS** (PostgreSQL, JWT, multi-tenant) e **interface React*
 
 | Área | O que faz |
 |------|-----------|
-| **Autenticação** | Login e registro vinculados a um tenant; JWT no `localStorage`; rota `/auth/me` retorna perfil completo. |
+| **Autenticação** | Login vinculados a um tenant; JWT no `localStorage`; rota `/auth/me` retorna perfil completo. |
 | **Tenants** | Cadastro de clínica (`slug`, documento, contato, cores opcionais); isolamento de dados por `tenantId` (nunca enviado manualmente no body — vem do token). |
 | **Usuários e papéis** | CRUD com RBAC (`ADMIN`, `MANAGER`, `ATTENDANT`, `VIEWER`, etc.). Permissões controlam acesso a telas e ações (ex.: gerenciar tenant, listar usuários). |
 | **Pacientes** | Cadastro com dados pessoais, endereço, plano de saúde e observações; listagem paginada com busca; ativar/desativar; integração opcional com ViaCEP no formulário. |
@@ -72,15 +72,3 @@ npm run dev
 ```
 
 O Vite usa proxy de `/api` para o backend (por padrão `http://127.0.0.1:3001`; ajuste com `API_PROXY_TARGET` se a API estiver em outra porta).
-
-## Testes e2e (backend)
-
-Os testes e2e usam **PostgreSQL** (ex.: `127.0.0.1:5433`, banco `crm_medico_e2e`). Consulte os arquivos em `backend/test/` e suba uma instância compatível antes de rodar:
-
-```bash
-cd backend && npm run test:e2e
-```
-
-## Coleção Postman
-
-Há uma coleção em `postman/crm-medico-api.postman_collection.json` para exercitar a API (`baseUrl` típico `http://localhost:3001`).

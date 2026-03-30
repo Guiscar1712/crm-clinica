@@ -27,14 +27,6 @@ npm run start:dev
 
 Com Docker Compose, defina `JWT_SECRET` no ambiente (há valor padrão no `docker-compose` apenas para desenvolvimento).
 
-## Testes e2e
-
-```bash
-cd backend && npm run test:e2e
-```
-
-Os testes e2e usam **PostgreSQL** (URL configurada nos specs, ex.: host `127.0.0.1:5433`, banco `crm_medico_e2e`). É preciso ter o servidor acessível antes de rodar a suíte.
-
 ## Migrations
 
 - `1732646400000-Initial`: `patients` e `appointments` (legado).
