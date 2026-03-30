@@ -1,0 +1,42 @@
+# Portas no host (evita conflito com Postgres 5432, API 3000, Vite 8080, etc.).
+# Sobrescreva com CRM_DB_PORT, CRM_API_PORT, CRM_WEB_PORT se precisar.
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: crm
+      POSTGRES_PASSWORD: crm
+      POSTGRES_DB: crm
+    ports:
+      - '${CRM_DB_PORT:-55432}:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U crm']
+      interval: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    ports:
+      - '${CRM_API_PORT:-3001}:3000'
+    environment:
+      DATABASE_URL: postgres://crm:crm@db:5432/crm
+      NODE_ENV: production
+      PORT: 3000
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production-use-long-random-string}
+      JWT_EXPIRES_IN: 7d
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    ports:
+      - '${CRM_WEB_PORT:-18080}:80'
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
